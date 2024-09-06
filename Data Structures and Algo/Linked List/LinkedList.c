@@ -163,6 +163,46 @@ int IsSorted(struct Node *p)
     return 1;
 }
 
+void Reverse1(struct Node *p)
+{
+    int *A, i = 0;
+    struct Node *q = p;
+    int count = CountNodes(p); // Get the count of nodes
+    A = (int *)malloc(sizeof(int) * count);
+    if (!A)
+        exit(1);
+
+    while (q != NULL)
+    {
+        A[i] = q->data;
+        q = q->next;
+        i++;
+    }
+
+    q = p;
+    i--;
+    while (q != NULL)
+    {
+        q->data = A[i];
+        q = q->next;
+        i--;
+    }
+    free(A);
+}
+
+void Reverse2(struct Node *p)
+{
+    struct Node *q = NULL, *r = NULL;
+    while (p != NULL)
+    {
+        r = q;
+        q = p;
+        p = p->next;
+        q->next = r;
+    }
+    first = q;
+}
+
 /********************* Recursive Functions **********************/
 void RecursiveDisplay(struct Node *p)
 {
@@ -209,6 +249,17 @@ struct Node *RecursiveSearch(struct Node *p, int key)
     return RecursiveSearch(p->next, key);
 }
 
+void RecursiveReverse(struct Node *q, struct Node *p)
+{
+    if (p)
+    {
+        RecursiveReverse(p, p->next);
+        p->next = q;
+    }
+    else
+        first = q;
+}
+
 int main()
 {
     int A[] = {12, 2, 13, 4};
@@ -217,7 +268,14 @@ int main()
     int N = sizeof(A) / sizeof(int);
     int M = sizeof(B) / sizeof(int);
     Create(A, N);
-    Create(B, M);
+    // Create(B, M);
+
+    /*  >>>>>>>>>>> Test Reverse
+    Display(first);
+    RecursiveReverse(NULL, first);
+    printf("\nList after Reverse1:\n");
+    Display(first);
+    */
 
     /*  >>>>>>>>>>> Test IsSorted
     Create(A, N);
