@@ -22,7 +22,7 @@ void Create(struct Sparse *s, int m, int n, int values[], int rows[], int cols[]
     s->m = m;
     s->n = n;
     s->num = num;
-    printf("\n%d\n", num);
+    // printf("\n%d\n", num);
 
     s->ele = (struct Element *)malloc(num * sizeof(struct Element));
 
@@ -31,7 +31,7 @@ void Create(struct Sparse *s, int m, int n, int values[], int rows[], int cols[]
         s->ele[i].i = rows[i];
         s->ele[i].j = cols[i];
         s->ele[i].x = values[i];
-        printf("Element %d: (%d, %d) = %d\n", i, rows[i], cols[i], values[i]); // Debug print
+        // printf("Element %d: (%d, %d) = %d\n", i, rows[i], cols[i], values[i]); // Debug print
     }
 }
 
