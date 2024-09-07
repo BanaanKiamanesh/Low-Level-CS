@@ -23,9 +23,11 @@ struct Set *Create(int A[], int length)
 
 void Display(const struct Set *arr)
 {
+    printf("{");
     for (int i = 0; i < arr->length; i++)
-        printf("%d ", arr->A[i]);
-    printf("\n");
+        printf(i != (arr->length - 1) ? "%d, " : "%d", arr->A[i]);
+
+    printf("}\n");
 }
 
 struct Set *Union(const struct Set *s1, const struct Set *s2)
@@ -115,7 +117,9 @@ int main()
     struct Set *s1 = Create(A1, sizeof(A1) / sizeof(A1[0]));
     struct Set *s2 = Create(A2, sizeof(A2) / sizeof(A2[0]));
 
+    printf("Set 1: ");
     Display(s1);
+    printf("Set 2: ");
     Display(s2);
 
     struct Set *s3 = Union(s1, s2);
