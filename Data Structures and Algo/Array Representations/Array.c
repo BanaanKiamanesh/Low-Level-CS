@@ -23,10 +23,10 @@ struct Array Create(int *InitContent, int InitLen)
 
 void Display(struct Array arr)
 {
-    printf("\nElements are\n");
+    printf("\n[");
     for (int i = 0; i < arr.len; i++)
-        printf("%d ", arr.A[i]);
-    printf("\n");
+        printf(i == (arr.len - 1) ? "%d" : "%d, ", arr.A[i]);
+    printf("]\n");
 }
 
 void Delete(struct Array *arr, int idx)
