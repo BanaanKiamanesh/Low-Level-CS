@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Stack Impl using Arrays
 struct Stack
 {
     int size;
