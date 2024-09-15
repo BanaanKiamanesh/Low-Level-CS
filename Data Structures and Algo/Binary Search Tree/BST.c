@@ -159,7 +159,52 @@ void LevelOrderTraversal(struct Node *root)
     free(q.Q);
 }
 
-/////////////////////////////// Main Function to Test
+struct Node *FindMin(struct Node *root)
+{
+    while (root && root->left != NULL)
+        root = root->left;
+    return root;
+}
+
+struct Node *Delete(struct Node *root, int key)
+{
+    if (root == NULL)
+        return root;
+
+    // Search for the node to be deleted
+    if (key < root->data)
+        root->left = Delete(root->left, key);
+    else if (key > root->data)
+        root->right = Delete(root->right, key);
+    else
+    {
+        // Case 1: Node with no child (leaf node)
+        if (root->left == NULL && root->right == NULL)
+        {
+            free(root);
+            return NULL;
+        }
+        // Case 2: Node with one child
+        else if (root->left == NULL)
+        {
+            struct Node *temp = root->right;
+            free(root);
+            return temp;
+        }
+        else if (root->right == NULL)
+        {
+            struct Node *temp = root->left;
+            free(root);
+            return temp;
+        }
+        // Case 3: Node with two children
+        struct Node *temp = FindMin(root->right);      // Find the in-order successor
+        root->data = temp->data;                       // Replace with in-order successor's data
+        root->right = Delete(root->right, temp->data); // Delete the in-order successor
+    }
+    return root;
+}
+
 int main()
 {
     struct Node *root = NULL;
@@ -201,6 +246,25 @@ int main()
         printf("Recursive Search: Found %d\n", searchResultRec->data);
     else
         printf("Recursive Search: Not Found\n");
+
+    // Test Delete
+    printf("Deleting 20\n");
+    root = Delete(root, 20);
+    printf("In-order Traversal after Deletion: ");
+    InOrderTraversal(root);
+    printf("\n");
+
+    printf("Deleting 30\n");
+    root = Delete(root, 30);
+    printf("In-order Traversal after Deletion: ");
+    InOrderTraversal(root);
+    printf("\n");
+
+    printf("Deleting 50\n");
+    root = Delete(root, 50);
+    printf("In-order Traversal after Deletion: ");
+    InOrderTraversal(root);
+    printf("\n");
 
     return 0;
 }
